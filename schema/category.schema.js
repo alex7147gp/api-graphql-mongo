@@ -1,0 +1,29 @@
+const Joi = require("joi");
+
+const id = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
+const name = Joi.string().min(3).max(20);
+const image = Joi.string().uri();
+const products = Joi.array();
+const description = Joi.string();
+const topic = Joi.array();
+
+const createCategorySchema = Joi.object({
+  name: name.required(),
+  image: image.required(),
+  description: description.required(),
+  topic: topic.required(),
+});
+
+const updateCategorySchema = Joi.object({
+  name,
+  image,
+  products,
+  description,
+  topic,
+});
+
+const getCategorySchema = Joi.object({
+  id: id.required(),
+});
+
+module.exports  = { createCategorySchema, updateCategorySchema, getCategorySchema };

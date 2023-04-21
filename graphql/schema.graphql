@@ -1,0 +1,108 @@
+type Query {
+  hello: String!
+  getPerson(name: String, age: Int): String
+  getInt: Int!
+  getFloat: Float
+  getBoolean: Boolean
+  getID: ID
+  getNumbers(numbers: [Int]!): [Int]
+  # products
+  product(id: ID!): Product!
+  products: [Product!]!
+  # category
+  category(id: ID!): Category!
+  categories: [Category!]!
+  # user
+  user(id: ID!): User
+  users: [User!]!
+}
+
+type Mutation {
+  # auth
+  login(email: String, password: String): AuthResponse
+  # product
+  addProduct(dto: CreateProductDto!): ProductA
+  updateProduct(id: ID!, dto: UpdateProductDto!): Product
+  deleteProduct(id: ID!): ID
+  # category
+  addCategory(dto: CreateCategoryDto): Category
+}
+
+type Product {
+	id: ID!
+	name: String!
+	price: Float!
+	description: String!
+	image: String!
+	createdAt: String!
+  category: CategoryA! 
+  url: String!
+}
+
+type ProductA {
+  id: ID!
+  name: String!
+  price: Float!
+  description: String!
+  image: String!
+  createdAt: String!
+  category: String! 
+  url: String!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  image: String!
+  description: String!
+  products: [ProductA!]!
+  topic: [String!]
+  createdAt: String!
+}
+
+type CategoryA {
+  id: ID!
+  name: String!
+  image: String!
+  description: String!
+  products: [String!]!
+  topic: [String!]
+  createdAt: String!
+}
+
+input CreateProductDto {
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+  image: String!
+  url: String
+}
+
+input UpdateProductDto {
+  name: String!
+  description: String!
+  price: Int!
+  category: String!
+  image: String!
+  url: String
+}
+
+type AuthResponse {
+  access_token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  role: String!
+  createdAt: String!
+}
+
+input CreateCategoryDto {
+  name: String!
+  description: String!
+  image: String!
+  topic: [String!]!
+}
