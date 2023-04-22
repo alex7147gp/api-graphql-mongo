@@ -33,9 +33,9 @@ app.get("/nueva-ruta", checkApiKey, (req, res) => {
 	res.send("Helo i am a new way")
 } )
 
-routerApi(app)
-
 await useGraphql(app)
+
+routerApi(app)
 
 app.use(logErrors)
 

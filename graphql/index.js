@@ -11,23 +11,21 @@ const resolvers = require("./resolvers")
 
 const { buildContext } = require("graphql-passport")
 
-
-
 const useGraphql = async (app) => {
     
 	const server = new ApolloServer({
 		typeDefs: readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
 		resolvers,
+		introspection: true,
 		playground: true,
 		plugins: [
-          ApolloServerPluginLandingPageGraphQLPlayground 
+          ApolloServerPluginLandingPageGraphQLPlayground(),
 		]
 	});
 	await server.start()
 	app.use(expressMiddleware(server, {
-            context: ({req, res}) => buildContext({req, res})
-        }),
-    );
+	    context: ({req, res}) => buildContext({req, res})	
+	}));
 }
 
 module.exports = useGraphql;
